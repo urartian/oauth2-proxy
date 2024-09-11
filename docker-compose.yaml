@@ -11,9 +11,9 @@ services:
       - 4180:4180/tcp
     environment:
       PORT: 4180
-      VIRTUAL_HOST: docflow.urartian.com
-      LETSENCRYPT_HOST: urartian.com,www.urartian.com
-      LETSENCRYPT_EMAIL: admin@urartian.am
+      VIRTUAL_HOST: app.example.com
+      LETSENCRYPT_HOST: example.com,www.example.com
+      LETSENCRYPT_EMAIL: admin@example.am
     depends_on:
        - redis
 

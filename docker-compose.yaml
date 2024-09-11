@@ -1,0 +1,31 @@
+services:
+  oauth2-proxy:
+    container_name: oauth2-proxy
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+    command: --config /oauth2-proxy.cfg
+    hostname: oauth2-proxy
+    volumes:
+      - "./oauth2-proxy.cfg:/oauth2-proxy.cfg"
+    restart: unless-stopped
+    ports:
+      - 4180:4180/tcp
+    environment:
+      PORT: 4180
+      VIRTUAL_HOST: docflow.urartian.com
+      LETSENCRYPT_HOST: urartian.com,www.urartian.com
+      LETSENCRYPT_EMAIL: admin@urartian.am
+    depends_on:
+       - redis
+
+  redis:
+    image: redis:7.0.2-alpine3.16
+    volumes:
+      - cache:/data
+networks:
+  default:
+    external:
+      name: letsencrypt
+
+volumes:
+  cache:
+    driver: local
